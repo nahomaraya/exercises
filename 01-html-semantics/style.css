@@ -55,6 +55,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+
+/* Style sheet begins here */
 header {
   background-color: #f8f9fa;
   padding: 1rem;
@@ -100,7 +102,7 @@ h6 {
 }
 
  p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.6;
   color: #666;
@@ -134,13 +136,6 @@ a {
   padding: 4rem 1.5rem;
   text-align: center;
 }
-/* #home h4 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  color: #1a1a1a;
-} */
 
 #home p {
   font-size: 1.25rem;
@@ -197,13 +192,99 @@ a {
   margin-top: 5rem;
 }
 
-#about{
-  display:block;
-  height: 50vh;
+#about {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  background-color: #f8f9fa;
 }
-#testimonials{
-  display:block;
-  height: 50vh;
+
+
+
+#testimonials {
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+blockquote {
+  flex: 1;
+  min-width: 280px;
+  max-width: 500px;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  border-left: 4px solid #1a1a1a;
+  border-radius: 8px;
+  text-align: left;
+  margin: 0;
+}
+
+blockquote p:first-child {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+blockquote p:last-child {
+  font-size: 0.95rem;
+  color: #999;
+  font-weight: 600;
+  text-align: right;
+}
+
+footer {
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+}
+
+footer nav {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+footer ul {
+  justify-content: center;
+  gap: 2rem;
+}
+
+footer li {
+  margin: 0;
+}
+
+footer a {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #ccc;
+}
+
+footer address {
+  font-style: normal;
+  margin-bottom: 1.5rem;
+}
+
+footer address p {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+footer small {
+  display: block;
+  color: #999;
+  font-size: 0.875rem;
+  margin-top: 1rem;
 }
 
 
@@ -249,4 +330,120 @@ a {
     padding: 1.25rem;
     text-align: center;
   }
+  #about {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+#about p {
+  font-size: 1.125rem;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+#about b {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+
+#testimonials {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+#testimonials h5 {
+  margin-bottom: 3rem;
+}
+
+#testimonials > div,
+#testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+blockquote {
+  flex: 1;
+  min-width: 280px;
+  max-width: 500px;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  border-left: 4px solid #1a1a1a;
+  border-radius: 8px;
+  text-align: left;
+  margin: 0;
+}
+
+blockquote p:first-child {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+blockquote p:last-child {
+  font-size: 0.95rem;
+  color: #999;
+  font-weight: 600;
+  text-align: right;
+}
+
+
+footer {
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+}
+
+footer nav {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+footer ul {
+  justify-content: center;
+  gap: 2rem;
+}
+
+footer li {
+  margin: 0;
+}
+
+footer a {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #ccc;
+}
+
+footer address {
+  font-style: normal;
+  margin-bottom: 1.5rem;
+}
+
+footer address p {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+footer small {
+  display: block;
+  color: #999;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
 }
