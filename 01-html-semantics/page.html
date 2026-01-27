@@ -2,84 +2,110 @@
 <html>
 
 <head>
-    <title>Acme Landing</title>
+    <!-- Meta should come before title to ensure correct rendering of characters in the title -->
+
     <meta charset="utf-8">
+    <title>Acme Landing</title>
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
-    <div>
-        <div>
+    <!--Header content should be inside header and nav tags -->
+    <header>
+        <nav>
             <h3>Acme</h3>
             <ul>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
             </ul>
-        </div>
-    </div>
+        </nav>
+    </header>
 
-    <div id="home">
+    <!-- Main body content should be insid main tag and the inner divs should be replaced by sections-->
+    <main>
+    <section id="home">
         <h4>Build Better, Faster.</h4>
         <p>Acme helps you launch projects with a clear, accessible foundation.</p>
 
-        <div>
-            <img src="https://via.placeholder.com/800x360">
-            <p>A quick look at Acme in action.</p>
-        </div>
-    </div>
+        <!-- This should be replaced by figure and figurecaption -->
+        <figure id="figure">
+            <img src="https://logos-world.net/wp-content/uploads/2022/05/Acme-Logo.png">
+            <figcaption>Acme helps you launch projects with a clear, accessible foundation</figcaption>
+        </figure>
+    </section>
 
-    <div id="features">
+    <section id="features">
         <h5>Our Features</h5>
-
-        <div>
+        <!-- Divs should be replaced by article -->
+        <div class="features-grid">
+        <article>
             <h6>Accessible by Default</h6>
             <p>We use generic tags so screen readers get confused.</p>
-        </div>
+        </article>
 
-        <div>
+        <article>
             <h6>Fast to Learn</h6>
             <p>Everything looks the same, so no hierarchy is clear.</p>
-        </div>
+        </article>
 
-        <div>
+        <article>
             <h6>Built to Scale</h6>
             <p>Div soup is future-proof… or not?</p>
+        </article>
+
+         <article>
+            <h6>Built to Scale</h6>
+            <p>Div soup is future-proof… or not?</p>
+        </article>
         </div>
 
-        <div>
+          <!-- Divs should be replaced by aside -->
+        <aside>
             <p><b>Tip:</b> Headings are random, so the outline doesn't make sense.</p>
-        </div>
-    </div>
+        </aside>
+    </section>
 
-    <div id="about">
+    <section id="about">
         <h5>About Us</h5>
         <p>
             Acme started in <b>2016</b> and we are still going.
         </p>
-    </div>
+    </section>
 
-    <div id="testimonials">
+    <section id="testimonials">
         <h5>Feedback</h5>
-        <div>
+        <!-- For testimonals blockquote is more optimal-->
+        <blockquote>
             <p>“This page is a nightmare for accessibility.”</p>
             <p>- Alex</p>
-        </div>
-        <div>
+        </blockquote>
+        <blockquote>
             <p>“Clean? Not really. Hard to navigate? Yes.”</p>
             <p>- Sam</p>
-        </div>
-    </div>
-
-    <div>
+        </blockquote>
+    </section>
+    </main>
+    <!-- For footers use footer tag-->
+    <footer>
+        <!-- use nav for quick links in footers-->
+        <nav>
         <ul>
             <li><a href="#home">Top</a></li>
             <li><a href="#features">Features</a></li>
         </ul>
+        </nav>
+        <!-- use address to wrap address in footer-->
+        <address>
         <p>
             Acme, 123 Web Ave, Example City · hello@example.com
         </p>
-        <p>2025 Acme Inc.</p>
-    </div>
+        </address>
+         <!-- use copyright symbol and time tag-->
+        <small>&copy;<time>2025</time> Acme Inc.</small>
+    </footer>
 </body>
 
 </html>
