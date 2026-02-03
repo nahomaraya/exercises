@@ -19,10 +19,29 @@ async function runLibraryDemo() {
     try {
         // Handle case where default export might be null
         const library = libraryManager || new LibraryManager(books);
-
+        library.addBooks(...books); // Add initial books
+        displayBooks(library.books, 'Initial Book Collection');
+    
         demonstrateScoping();
 
         // Display library statistics and demonstrate book operations
+        const stats = library.getStatistics();
+        displayStatistics(stats);
+        const availableBooks = filterBooksByStatus(library.books, 'available');
+        displayBooks(availableBooks, 'Available Books');
+
+        const booksByGenre = groupBooksByGenre(library.books);
+        console.log('\nBooks Grouped by Genre:');
+        for (const [genre, booksInGenre] of booksByGenre) {
+            console.log(`\nGenre: ${genre}`);
+            displayBooks(booksInGenre, `Books in ${genre}`);
+        }
+        bookTitleGenerator(library.books);
+        const searchResults = library.searchBooks({ author: 'Robert C. Martin' });
+        displaySearchResults(searchResults, { author: 'Robert C. Martin' });
+
+        showBookAnalysis(library.books);
+        
         // Show filtering, grouping, search, and analysis features
         
     } catch (error) {

@@ -13,6 +13,8 @@ export class LibraryManager {
     constructor(initialBooks = []) {
         this.books = [...initialBooks]; // Shallow copy using spread
         this.#updateStatistics();
+        // Bind memoized searchBooks method
+        this.searchBooks = memoize(this.searchBooks.bind(this));
     }
 
     /**
@@ -21,11 +23,19 @@ export class LibraryManager {
      * searchBooks({title, author, genre} = {}, caseSensitive = false): Search with destructuring and optional chaining
      */
     addBooks(...newBooks) {
+        this.books.push(...newBooks);
+        this.#updateStatistics();
         // Add books using spread operator and update statistics
     }
 
     searchBooks({ title, author, genre } = {}, caseSensitive = false) {
-        // Implement search logic with destructuring and optional chaining
+
+        return this.books.filter(book => {
+            const titleMatch = title ? (caseSensitive ? book.title.includes(title) : book.title.toLowerCase().includes(title.toLowerCase())) : true;
+            const authorMatch = author ? (caseSensitive ? book.author.includes(author) : book.author.toLowerCase().includes(author.toLowerCase())) : true;
+            const genreMatch = genre ? (caseSensitive ? book.genre.includes(genre) : book.genre.toLowerCase().includes(genre.toLowerCase())) : true;
+            return titleMatch && authorMatch && genreMatch;
+        });        // Implement search logic with destructuring and optional chaining
     }
 
     /**
@@ -34,10 +44,15 @@ export class LibraryManager {
      * updateBook(book, updates): Use logical assignment operators (??=, ||=, &&=)
      */
     getStatistics() {
+        return { ...this.#statistics };
         // Return statistics with computed property names
     }
 
     updateBook(book, updates) {
+        Object.keys(updates).forEach(key => {
+            book[key] ??= updates[key];
+        });
+        this.#updateStatistics();
         // Use logical assignment operators to update book properties
     }
 
@@ -57,10 +72,21 @@ export class LibraryManager {
 }
 
 export const createBookFormatter = (formatter) => {
+    return (bookArray) => bookArray.map(formatter);
     // Return function that applies formatter to book arrays
 };
 
 export const memoize = (fn) => {
+    const cache = new Map();
+    return (...args) => {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+        const result = fn(...args);
+        cache.set(key, result);
+        return result;
+    };
     // Use Map to cache expensive function results
 };
 

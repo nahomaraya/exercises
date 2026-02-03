@@ -43,8 +43,10 @@ export const books = [
 // Map: "Programming" -> "Books about programming languages and techniques"
 //      "Software Engineering" -> "Books about software design and architecture"
 // Set: Extract all unique author names from the books array using spread operator
-export const categoryDescriptions = null; // Replace with your Map
-export const uniqueAuthors = null; // Replace with your Set
+export const categoryDescriptions = new Map([]); // Replace with your Map
+categoryDescriptions.set("Programming", "Books about programming languages and techniques");
+categoryDescriptions.set("Software Engineering", "Books about software design and architecture");
+export const uniqueAuthors = new Set(books.map(book => book.author)); // Replace with your Set
 
 /**
  * TODO: Implement filterBooksByStatus and groupBooksByGenre functions
@@ -52,10 +54,19 @@ export const uniqueAuthors = null; // Replace with your Set
  * groupBooksByGenre: Return Map with genre as key, array of books as value
  */
 export function filterBooksByStatus(bookArray, status) {
+    return bookArray.filter(book => book.availability?.status === status);
     // Filter books by availability status, handle undefined availability
 }
 
 export function groupBooksByGenre(bookArray) {
+    const genreMap = new Map();
+    bookArray.forEach(book => {
+        if (!genreMap.has(book.genre)) {
+            genreMap.set(book.genre, []);
+        }
+        genreMap.get(book.genre).push(book);
+    });
+    return genreMap;
     // Group books into Map by genre
 }
 
@@ -66,9 +77,19 @@ export function groupBooksByGenre(bookArray) {
  * Example: "The Clean Coder by Robert C. Martin (2011) - Available at A1-23"
  */
 export function* bookTitleGenerator(bookArray) {
+    for (const book of bookArray) {
+        yield book.title;
+    }
     // Yield book titles one by one
 }
 
 export function createBookSummary(book) {
+    const { title, author, year, availability } = book;
+    const status = availability?.status === "available"
+        ? `Available at ${availability.location}`
+        : availability?.status === "checked_out"
+            ? `Checked out, due back on ${availability.dueDate}`
+            : "Availability unknown";
+    return `${title} by ${author} (${year}) - ${status}`;
     // Destructure book properties and create formatted summary
 }
