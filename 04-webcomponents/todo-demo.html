@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List Web Component Demo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      min-height: 100vh;
+      padding: 40px 20px;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      color: black;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    @media (max-width: 768px) {
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .controls {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .controls h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 1.5rem;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .control-button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .control-button.primary {
+      background: #2196F3;
+      color: white;
+    }
+    
+    .control-button.primary:hover {
+      background: #1976D2;
+    }
+    
+    .control-button.danger {
+      background: #f44336;
+      color: white;
+    }
+    
+    .control-button.danger:hover {
+      background: #d32f2f;
+    }
+    
+    .event-log {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .event-log h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 1.5rem;
+    }
+    
+    .log-container {
+      max-height: 400px;
+      overflow-y: auto;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    
+    .log-item {
+      background: white;
+      padding: 12px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border-left: 4px solid #2196F3;
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .log-item .action {
+      font-weight: bold;
+      color: #2196F3;
+      text-transform: capitalize;
+    }
+    
+    .log-item .action.added {
+      color: #4CAF50;
+    }
+    
+    .log-item .action.deleted {
+      color: #f44336;
+    }
+    
+    .log-item .action.cleared {
+      color: #FF9800;
+    }
+    
+    .log-item .time {
+      color: #999;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    
+    .empty-log {
+      text-align: center;
+      color: #999;
+      padding: 20px;
+    }
+    
+    .info-box {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 16px;
+      color: white;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .info-box code {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Todo List Web Component</h1>
+    <div class="demo-grid">
+      <div>
+        <todo-list id="myTodoList"></todo-list>
+      </div>
+      
+      <!-- <div class="controls">
+        <h2>Controls & API</h2>
+        <div class="button-group">
+          <button class="control-button primary" id="addSampleBtn">
+            Add Sample Task
+          </button>
+          <button class="control-button primary" id="getItemsBtn">
+            Log Items to Console
+          </button>
+          <button class="control-button danger" id="clearAllBtn">
+            Clear All Tasks
+          </button>
+        </div>
+        
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0e0e0;">
+          <h3 style="margin-top: 0; color: #666; font-size: 1rem;">Public API Methods:</h3>
+          <ul style="color: #666; font-size: 0.9rem; line-height: 1.8;">
+            <li><code>addItem(text)</code> - Add item programmatically</li>
+            <li><code>getItems()</code> - Get all items</li>
+            <li><code>clearAll()</code> - Clear all items</li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+    
+    <div class="event-log">
+      <h2>Event Log (<code>listChanged</code> events)</h2>
+      <div class="log-container" id="logContainer">
+        <div class="empty-log">No events yet. Start adding tasks!</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Load the Todo List component -->
+  <script src="todo-list.js"></script>
+  
+  <script>
+    const todoList = document.getElementById('myTodoList');
+    const logContainer = document.getElementById('logContainer');
+    
+    // Sample tasks for demo
+    const sampleTasks = [
+      'Learn Web Components',
+      'Build a todo app',
+      'Master Shadow DOM',
+      'Implement custom events',
+      'Create reusable components'
+    ];
+    let sampleIndex = 0;
+    
+    // Listen for listChanged events
+    todoList.addEventListener('listChanged', (event) => {
+      console.log('List changed:', event.detail);
+      addLogEntry(event.detail);
+    });
+    
+    // Add log entry to the UI
+    function addLogEntry(detail) {
+      // Remove empty state if present
+      const emptyState = logContainer.querySelector('.empty-log');
+      if (emptyState) {
+        emptyState.remove();
+      }
+      
+      const logItem = document.createElement('div');
+      logItem.className = 'log-item';
+      
+      const action = document.createElement('span');
+      action.className = `action ${detail.action}`;
+      action.textContent = detail.action;
+      
+      const itemText = detail.item ? ` "${detail.item.text}"` : '';
+      const totalText = ` (Total: ${detail.totalItems} ${detail.totalItems === 1 ? 'item' : 'items'})`;
+      
+      const time = document.createElement('div');
+      time.className = 'time';
+      time.textContent = new Date(detail.timestamp).toLocaleTimeString();
+      
+      logItem.appendChild(action);
+      logItem.appendChild(document.createTextNode(itemText + totalText));
+      logItem.appendChild(time);
+      
+      // Add to top of log
+      logContainer.insertBefore(logItem, logContainer.firstChild);
+      
+      // Keep only last 20 entries
+      while (logContainer.children.length > 20) {
+        logContainer.removeChild(logContainer.lastChild);
+      }
+    }
+    
+    // Control buttons
+    document.getElementById('addSampleBtn').addEventListener('click', () => {
+      const task = sampleTasks[sampleIndex % sampleTasks.length];
+      todoList.addItem(task);
+      sampleIndex++;
+    });
+    
+    document.getElementById('getItemsBtn').addEventListener('click', () => {
+      const items = todoList.getItems();
+      console.log('Current items:', items);
+      alert(`Check the console! Found ${items.length} item(s).`);
+    });
+    
+    document.getElementById('clearAllBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all tasks?')) {
+        todoList.clearAll();
+      }
+    });
+  </script>
+</body>
+</html>
